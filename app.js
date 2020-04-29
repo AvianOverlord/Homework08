@@ -46,7 +46,9 @@ function createManager(){
       message: "What is the room number of your project?"
     }]).then(answers => {
       const newManager = new Manager.Manager(answers.managerName,currentId,answers.managerEmail, answers.managerOffice);
+      currentId++;
       teamMembers.push(newManager);
+      console.log(newManager);
       createTeam();
     });
 }
