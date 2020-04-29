@@ -123,8 +123,43 @@ function createEngineer() {
 }
 
 function createIntern(){
-  console.log("Intern!");
-}
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "internName",
+      message: "What is your intern's name?",// Note how the validate function works
+      validate: answer => {
+      if (answer !== "") {
+        return true;
+      }
+      return "Please enter at least one character.";
+    }
+  },
+  {
+    type: "input",
+    name: "internEmail",
+    message: "What is your intern's email address?"
+  },
+  {
+    type: "input",
+    name: "internSchool",
+    message: "Where does your intern go to school?"
+  },
+  {
+    type: "input",
+    name: "internId",
+    message: "What is your intern's ID?"
+  }
+
+  ]).then(userChoice => {
+    if(IdCheck(userChoice.EngineerId))
+    {
+      const newIntern = new Intern.Intern(userChoice.internName,userChoice.internId,userChoice.internEmail,userChoice.internSchool);
+      idArray.push(userChoice.internId);
+      teamMembers.push(newIntern);
+    }
+    createTeam();
+  });}
 
 // STUDENT: This function will call the render function required near the top (line 12), 
 // and pass INTO it the teamMembers area; from there, write the HTML returned back to a file 
