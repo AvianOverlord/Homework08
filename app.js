@@ -16,7 +16,6 @@ const teamMembers = [];
 
 // This will be an array of the id values created for each object so there are no duplicates
 const idArray = [];
-let currentId =0;
 
 
 // STUDENT: This function generates all the questions for creating the manager. You need to add more to this.
@@ -42,12 +41,17 @@ function createManager(){
     },
     {
       type: "input",
+      name: "managerID",
+      message: "What is your manager's ID?"
+    },
+    {
+      type: "input",
       name: "managerOffice",
       message: "What is the room number of your project?"
     }]).then(answers => {
-      const newManager = new Manager.Manager(answers.managerName,currentId,answers.managerEmail, answers.managerOffice);
-      currentId++;
+      const newManager = new Manager.Manager(answers.managerName,answers.managerID,answers.managerEmail, answers.managerOffice);
       teamMembers.push(newManager);
+      idArray.push(answers.managerID);
       console.log(newManager);
       createTeam();
     });
@@ -74,25 +78,47 @@ function createTeam() {
       case "Create my page":
         renderHtmlPage();
     }
-
   });
 }
 
 // This function starts team creation.
 function createEngineer() {
-  console.log("Engineer!");
   inquirer.prompt([
-    // STUDENT:  Engineer questions
+    {
+      type: "input",
+      name: "EngineerName",
+      message: "What is your engineer's name?",// Note how the validate function works
+      validate: answer => {
+      if (answer !== "") {
+        return true;
+      }
+      return "Please enter at least one character.";
+    }
+  },
+  {
+    type: "input",
+    name: "EngineerEmail",
+    message: "What is your engineer's email address?"
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "What is this enginner's github username?"
+  },
+  {
+    type: "input",
+    name: "EngineerId",
+    message: "What is your enginner's ID?"
+  }
 
   ]).then(userChoice => {
-    // STUDENT: Make sure the id supplied is unique, then take the data supplied and 
-    // instantiate the Engineer constructor.
-    
-    
-    // STUDENT: When finished:
-       // Add the new object to the team member array
-       // Pass control back to the createTeam() function
-
+    if(IdCheck(userChoice.EngineerId))
+    {
+      const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.github);
+      idArray.push(userChoice.EngineerId);
+      teamMembers.push(newEngi);
+    }
+    createTeam();
   });
 }
 
@@ -115,6 +141,16 @@ function startMenu() {
   // Here we start things off by calling the createManager function
   createManager()
 
+}
+
+function IdCheck(id)
+{
+  if(idArray.includes(id))
+  {
+    console.log("This person has already been added.");
+    return false;
+  }
+  return true;
 }
 
 
