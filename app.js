@@ -52,7 +52,6 @@ function createManager(){
       const newManager = new Manager.Manager(answers.managerName,answers.managerID,answers.managerEmail, answers.managerOffice);
       teamMembers.push(newManager);
       idArray.push(answers.managerID);
-      console.log(newManager);
       createTeam();
     });
 }
@@ -102,21 +101,23 @@ function createEngineer() {
   },
   {
     type: "input",
-    name: "github",
-    message: "What is this enginner's github username?"
+    name: "EngineerGithub",
+    message: "What is this engineer's github username?"
   },
   {
     type: "input",
     name: "EngineerId",
-    message: "What is your enginner's ID?"
+    message: "What is your engineer's ID?"
   }
-
   ]).then(userChoice => {
+    console.log("Before: " + userChoice.EngineerGithub);
     if(IdCheck(userChoice.EngineerId))
     {
-      const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.github);
+      const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.EngineerGithub);
+      //TODO: Fix this sodding bug
       idArray.push(userChoice.EngineerId);
       teamMembers.push(newEngi);
+      console.log("After:"  + newEngi.GetGithub());
     }
     createTeam();
   });
@@ -165,7 +166,7 @@ function createIntern(){
 // and pass INTO it the teamMembers area; from there, write the HTML returned back to a file 
 // in a directory called output.
 function renderHtmlPage(){
-  console.log("HTML!")
+  console.log(teamMembers);
 }
 
 // This is our starter function.
