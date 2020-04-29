@@ -166,8 +166,10 @@ function createIntern(){
 // and pass INTO it the teamMembers area; from there, write the HTML returned back to a file 
 // in a directory called output.
 function renderHtmlPage(){
-  console.log(teamMembers);
-  console.log(idArray);
+  //console.log(teamMembers);
+  //console.log(idArray);
+  const HTMLpage = render(teamMembers);
+  console.log(HTMLpage);
 }
 
 // This is our starter function.
