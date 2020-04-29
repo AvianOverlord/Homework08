@@ -153,7 +153,7 @@ function createIntern(){
   }
 
   ]).then(userChoice => {
-    if(IdCheck(userChoice.EngineerId))
+    if(IdCheck(userChoice.internId))
     {
       const newIntern = new Intern.Intern(userChoice.internName,userChoice.internId,userChoice.internEmail,userChoice.internSchool);
       idArray.push(userChoice.internId);
@@ -167,6 +167,7 @@ function createIntern(){
 // in a directory called output.
 function renderHtmlPage(){
   console.log(teamMembers);
+  console.log(idArray);
 }
 
 // This is our starter function.
