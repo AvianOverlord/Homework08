@@ -16,6 +16,7 @@ const teamMembers = [];
 
 // This will be an array of the id values created for each object so there are no duplicates
 const idArray = [];
+const currentId =0;
 
 
 // STUDENT: This function generates all the questions for creating the manager. You need to add more to this.
@@ -34,15 +35,18 @@ function createManager(){
         return "Please enter at least one character.";
       }
     },
-
-    // STUDENT: Add other questions here!
-
-
-    ]).then(answers => {
-      // STUDENT: Process the response by instatiating a new object in the Manager class
-
-
-      // Now call the next question set
+    {
+      type: "input",
+      name: "managerEmail",
+      message: "What is your manager's email address?",
+    },
+    {
+      type: "input",
+      name: "managerOffice",
+      message: "What is the room number of your project?"
+    }]).then(answers => {
+      const newManager = new Manager.Manager(answers.managerName,currentId,answers.managerEmail, answers.managerOffice);
+      teamMembers.push(newManager);
       createTeam();
     });
 }
