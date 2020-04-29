@@ -16,7 +16,7 @@ const teamMembers = [];
 
 // This will be an array of the id values created for each object so there are no duplicates
 const idArray = [];
-const currentId =0;
+let currentId =0;
 
 
 // STUDENT: This function generates all the questions for creating the manager. You need to add more to this.
@@ -56,18 +56,31 @@ function createManager(){
 // This function starts team creation.
 function createTeam() {
   inquirer.prompt([
-    // STUDENT: Ask which type of team member should be created with a list of choices
-
+    {
+      type: "list",
+      name: "selection",
+      message: "What do you want to do next?",
+      choices: ["Add an Engineer","Add an Intern","Create my page"]
+    }
   ]).then(userChoice => {
-    // STUDENT: Based on which choice they make, call the correct function to ask more questions.
-    // If no choice is made, then go to the rendering function.
-
+    switch(userChoice.selection)
+    {
+      case "Add an Engineer":
+        createEngineer();
+        break;
+      case "Add an Intern":
+        createIntern();
+        break;
+      case "Create my page":
+        renderHtmlPage();
+    }
 
   });
 }
 
 // This function starts team creation.
 function createEngineer() {
+  console.log("Engineer!");
   inquirer.prompt([
     // STUDENT:  Engineer questions
 
@@ -83,14 +96,15 @@ function createEngineer() {
   });
 }
 
-// STUDENT: Now create a function for creating an Intern using the code above as an example
-
+function createIntern(){
+  console.log("Intern!");
+}
 
 // STUDENT: This function will call the render function required near the top (line 12), 
 // and pass INTO it the teamMembers area; from there, write the HTML returned back to a file 
 // in a directory called output.
 function renderHtmlPage(){
-
+  console.log("HTML!")
 }
 
 // This is our starter function.
