@@ -113,11 +113,11 @@ function createEngineer() {
     console.log("Before: " + userChoice.EngineerGithub);
     if(IdCheck(userChoice.EngineerId))
     {
-      const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.EngineerGithub);
+      const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.EngineerEmail,userChoice.EngineerGithub);
       //TODO: Fix this sodding bug
       idArray.push(userChoice.EngineerId);
       teamMembers.push(newEngi);
-      console.log("After:"  + newEngi.GetGithub());
+      console.log("After:"  + newEngi.getGithub());
     }
     createTeam();
   });
