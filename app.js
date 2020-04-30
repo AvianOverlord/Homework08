@@ -110,14 +110,12 @@ function createEngineer() {
     message: "What is your engineer's ID?"
   }
   ]).then(userChoice => {
-    console.log("Before: " + userChoice.EngineerGithub);
     if(IdCheck(userChoice.EngineerId))
     {
       const newEngi = new Engineer.Engineer(userChoice.EngineerName,userChoice.EngineerId,userChoice.EngineerEmail,userChoice.EngineerGithub);
       //TODO: Fix this sodding bug
       idArray.push(userChoice.EngineerId);
       teamMembers.push(newEngi);
-      console.log("After:"  + newEngi.getGithub());
     }
     createTeam();
   });
