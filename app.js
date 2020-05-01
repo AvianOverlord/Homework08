@@ -17,11 +17,19 @@ let teamMembers = [];
 // This will be an array of the id values created for each object so there are no duplicates
 let idArray = [];
 
+let teamName;
+
 
 // STUDENT: This function generates all the questions for creating the manager. You need to add more to this.
 function createManager(){
   console.log("Please build your team");
   inquirer.prompt([
+    {
+      type: "input",
+      name: "teamName",
+      message: "What is the name of your team?",
+      default: "My team"
+    },
     {
       type: "input",
       name: "managerName",
@@ -67,6 +75,7 @@ function createManager(){
         return "Please enter a number.";
       }
     }]).then(answers => {
+      teamName = answers.teamName;
       const newManager = new Manager.Manager(answers.managerName,answers.managerID,answers.managerEmail, answers.managerOffice);
       teamMembers.push(newManager);
       idArray.push(answers.managerID);
@@ -265,7 +274,8 @@ function removeMember()
 function renderHtmlPage(){
   //console.log(teamMembers);
   //console.log(idArray);
-  const HTMLpage = render(teamMembers);
+  let HTMLpage = render(teamMembers);
+  HTMLpage = HTMLpage.replace(/My Team/g,teamName);
   fs.writeFileSync(outputPath,HTMLpage);
 }
 
