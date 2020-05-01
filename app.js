@@ -12,10 +12,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 // This will be an array of all team member objects created
-const teamMembers = [];
+let teamMembers = [];
 
 // This will be an array of the id values created for each object so there are no duplicates
-const idArray = [];
+let idArray = [];
 
 
 // STUDENT: This function generates all the questions for creating the manager. You need to add more to this.
@@ -81,7 +81,7 @@ function createTeam() {
       type: "list",
       name: "selection",
       message: "What do you want to do next?",
-      choices: ["Add an Engineer","Add an Intern","Create my page"]
+      choices: ["Add an Engineer","Add an Intern","Remove a team member","Create my page"]
     }
   ]).then(userChoice => {
     switch(userChoice.selection)
@@ -92,8 +92,12 @@ function createTeam() {
       case "Add an Intern":
         createIntern();
         break;
+      case "Remove a team member":
+        removeMember();
+        break;
       case "Create my page":
         renderHtmlPage();
+        break;
     }
   });
 }
@@ -203,7 +207,6 @@ function createIntern(){
       return "Please enter a number.";
     }
   }
-
   ]).then(userChoice => {
     if(IdCheck(userChoice.internId))
     {
@@ -212,7 +215,49 @@ function createIntern(){
       teamMembers.push(newIntern);
     }
     createTeam();
-  });}
+  });
+}
+
+function removeMember()
+{
+  const choiceArray = ["Never mind"];
+  for(let y = 0; y < teamMembers.length; y++)
+  {
+    if(teamMembers[y].getRole !== "Manager")
+    {
+      choiceArray.push(teamMembers[y].getName());
+    }
+  }
+  inquirer.prompt([
+    {
+      type: "list",
+      name: "removalSelection",
+      message: "Who do you want to remove?",
+      choices: choiceArray
+    }
+  ]).then(choice => {
+    if(choice.removalSelection !== "Never Mind")
+    {
+      for(let z = 0; z < teamMembers.length; z++)
+      {
+        if(teamMembers[z].getName() === choice.removalSelection)
+        {
+          if(teamMembers[z].getRole() === "Manager")
+          {
+            console.log("You can't remove the manager. If you got that wrong, start over.");
+          }
+          else
+          {
+            teamMembers.splice(z,1);
+            idArray.splice(z,1);
+          }
+          z = teamMembers.length;
+        }
+      }
+    }
+    createTeam();
+  });
+}
 
 // STUDENT: This function will call the render function required near the top (line 12), 
 // and pass INTO it the teamMembers area; from there, write the HTML returned back to a file 
