@@ -167,7 +167,7 @@ function renderHtmlPage(){
   //console.log(teamMembers);
   //console.log(idArray);
   const HTMLpage = render(teamMembers);
-  console.log(HTMLpage);
+  fs.writeFileSync(outputPath,HTMLpage);
 }
 
 // This is our starter function.
