@@ -38,16 +38,34 @@ function createManager(){
       type: "input",
       name: "managerEmail",
       message: "What is your manager's email address?",
+      validate: answer => {
+        if(answer !== ""){
+          return true;
+        }
+        return "Please enter at least one character.";
+      }
     },
     {
       type: "input",
       name: "managerID",
-      message: "What is your manager's ID?"
+      message: "What is your manager's ID?",
+      validate: answer => {
+        if(answer !== "" && !isNaN(answer)){
+          return true;
+        }
+        return "Please enter a number.";
+      }
     },
     {
       type: "input",
       name: "managerOffice",
-      message: "What is the room number of your project?"
+      message: "What is the room number of your project?",
+      validate: answer => {
+        if(answer !== "" && !isNaN(answer)){
+          return true;
+        }
+        return "Please enter a number.";
+      }
     }]).then(answers => {
       const newManager = new Manager.Manager(answers.managerName,answers.managerID,answers.managerEmail, answers.managerOffice);
       teamMembers.push(newManager);
@@ -88,6 +106,17 @@ function createEngineer() {
       name: "EngineerName",
       message: "What is your engineer's name?",// Note how the validate function works
       validate: answer => {
+        if (answer !== "") {
+          return true;
+        }
+        return "Please enter at least one character.";
+      }
+  },
+  {
+    type: "input",
+    name: "EngineerEmail",
+    message: "What is your engineer's email address?",
+    validate: answer => {
       if (answer !== "") {
         return true;
       }
@@ -96,18 +125,25 @@ function createEngineer() {
   },
   {
     type: "input",
-    name: "EngineerEmail",
-    message: "What is your engineer's email address?"
-  },
-  {
-    type: "input",
     name: "EngineerGithub",
-    message: "What is this engineer's github username?"
+    message: "What is this engineer's github username?",
+    validate: answer => {
+      if (answer !== "") {
+        return true;
+      }
+      return "Please enter at least one character.";
+    }
   },
   {
     type: "input",
     name: "EngineerId",
-    message: "What is your engineer's ID?"
+    message: "What is your engineer's ID?",
+    validate: answer => {
+      if(answer !== "" && !isNaN(answer)){
+        return true;
+      }
+      return "Please enter a number.";
+    }
   }
   ]).then(userChoice => {
     if(IdCheck(userChoice.EngineerId))
@@ -137,17 +173,35 @@ function createIntern(){
   {
     type: "input",
     name: "internEmail",
-    message: "What is your intern's email address?"
+    message: "What is your intern's email address?",
+    validate: answer => {
+      if (answer !== "") {
+        return true;
+      }
+      return "Please enter at least one character.";
+    }
   },
   {
     type: "input",
     name: "internSchool",
-    message: "Where does your intern go to school?"
+    message: "Where does your intern go to school?",
+    validate: answer => {
+      if (answer !== "") {
+        return true;
+      }
+      return "Please enter at least one character.";
+    }
   },
   {
     type: "input",
     name: "internId",
-    message: "What is your intern's ID?"
+    message: "What is your intern's ID?",
+    validate: answer => {
+      if(answer !== "" && !isNaN(answer)){
+        return true;
+      }
+      return "Please enter a number.";
+    }
   }
 
   ]).then(userChoice => {
